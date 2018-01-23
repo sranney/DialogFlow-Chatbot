@@ -8,7 +8,7 @@ const app = express();
 app.use(express.static(__dirname+"/views"));
 app.use(express.static(__dirname+"/public"));
 
-const port = process.env.port || 5000;
+const port = process.env.PORT||5000;
 //set up server to listen on port
 const server = app.listen(port);
 
