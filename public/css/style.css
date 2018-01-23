@@ -1,0 +1,66 @@
+body {
+    background-color: #0d47a1;
+    position: relative;
+}
+.title{
+    text-align:center;
+    color:white;
+    font-size:10vh;
+    margin-bottom:6vh;
+}
+.user-section,
+.chatty-section {
+    position: absolute;
+    top:57%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+.chatty-section{
+    display:none;
+}
+.output-section{
+    text-align:left;
+}
+.mic{
+    font-size:60vh;
+    color:#053885;
+}
+.chatty{
+    font-size: 60vh;
+    color: white;
+    text-shadow: 0rem 0rem 4rem white;
+}
+
+.mic.glow{
+    color:#03a9f4;
+    text-shadow: 0rem 0rem 4rem rgba(3,169,244, 1);
+}
+
+.btn-listen,.chatty-talk{
+    margin-top: 5vh;
+    text-align:center;
+    color:white;
+    font-size:8vh;
+    border-radius: 20px;
+    border:2vh solid white;
+    transition:all 0.1s;
+}
+
+.btn-listen.record{
+    background-color:#e53935;
+    border-color:#e53935;
+    box-shadow:0rem 0rem 4rem #e53935;
+}
+
+.chatty-talk{
+    background-color:#03a9f4;
+    border:2vh solid #03a9f4;
+    color:white;
+    text-shadow:0rem 0rem 4rem white; 
+    box-shadow: 0rem 0rem 4rem #03a9f4;
+}
+
+#transcript{
+    color:white;
+    width:25%;
+}

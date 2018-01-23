@@ -1,0 +1,30 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
+        <link rel="stylesheet" href="css/icofont.css">
+        <link rel="stylesheet" href="css/weather-icons.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.sound.js"></script>
+    </head>
+    <body>
+        <div class="title">
+            Chats with Chatty, the Chat Bot <i class="icofont icofont-robot-face"></i> <i class="icofont icofont-ui-weather"></i>
+        </div>
+        <div class="user-section">  
+            <i class="ti-microphone mic"></i>
+            <div class="btn-listen">Speak</div>
+        </div>
+        <div class="chatty-section">
+            <i id="chatty-face" class="icofont icofont-robot-face chatty"></i>
+            <div class="chatty-talk">Chatty Talk</div>
+        </div> 
+        <div id="transcript">
+            <p class="you">You Said: </p>
+            <p class="chatbot">Chatty Said: </p>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>
