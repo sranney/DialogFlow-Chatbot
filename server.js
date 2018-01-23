@@ -13,7 +13,7 @@ const port = process.env.port || 5000;
 const server = app.listen(port);
 
 //set up apiai for interpreting questions  asked of it
-const apiai = require('apiai')("c28ada6186354440a1e0c9dd129ded22");
+const apiai = require('apiai')(process.env.APIAI_KEY);
 //set up socket.io to listen for client emits on the same server
 const io = require("socket.io")(server);
 
@@ -28,7 +28,7 @@ io.on("connection",(socket)=>{
     socket.on("chat message",text=>{
         //pass the text sent from the client to the apiai engine that will interpret and respond to text passed from clients
         let apiaiReq = apiai.textRequest(text,{
-            sessionId: "b*0ielw,emMM*1!M"
+            sessionId: process.env.SESSION_ID
         })
         //when apiai has a response, emit it back to the client
         apiaiReq.on("response",response=>{
