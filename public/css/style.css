@@ -5,8 +5,9 @@ body {
 .title{
     text-align:center;
     color:white;
-    font-size:10vh;
+    font-size:7vh;
     margin-bottom:6vh;
+    font-family: "Android";
 }
 .user-section,
 .chatty-section {
@@ -37,10 +38,11 @@ body {
 }
 
 .btn-listen,.chatty-talk{
+    font-family: "Android";
     margin-top: 5vh;
     text-align:center;
     color:white;
-    font-size:8vh;
+    font-size:7vh;
     border-radius: 20px;
     border:2vh solid white;
     transition:all 0.1s;
@@ -63,4 +65,9 @@ body {
 #transcript{
     color:white;
     width:25%;
+}
+
+@font-face{
+    font-family:"Android";
+    src:url("./androidnation.ttf");
 }
