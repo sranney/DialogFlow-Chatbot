@@ -13,7 +13,7 @@ const port = process.env.PORT||5000;
 const server = app.listen(port);
 
 //set up apiai for interpreting questions  asked of it
-const apiai = require('apiai')(process.env.APIAI_KEY);
+const apiai = require('apiai')(process.env.APIAI_KEY||require("../../secrets/apiai"));
 //set up socket.io to listen for client emits on the same server
 const io = require("socket.io")(server);
 

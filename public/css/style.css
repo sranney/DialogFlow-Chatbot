@@ -1,13 +1,28 @@
 body {
-    background-color: #0d47a1;
+    background-color: #263238;
     position: relative;
 }
 .title{
     text-align:center;
-    color:white;
-    font-size:7vh;
+    color:#03a9f4;
+    font-size:7.2vh;
     margin-bottom:6vh;
     font-family: "Android";
+    text-shadow:0rem 0rem 0 rgba(255,255,255,0.8),
+                0rem 0rem 0 rgba(255,255,255,0.6),
+                0rem 0rem 0 rgba(255,255,255,0.4),
+                0rem 0rem 0 rgba(255,255,255,0.2);
+    transition: text-shadow 0.5s;
+}
+
+.title:hover{
+    text-shadow:-0.3rem 0.3rem 0 rgba(255,255,255,0.8),
+                -0.7rem 0.7rem 0 rgba(255,255,255,0.6),
+                -1.1rem 1.1rem 0 rgba(255,255,255,0.4),
+                -1.5rem 1.5rem 0 rgba(255,255,255,0.2);
+}
+.title>.icofont{
+    text-shadow:0 0 0;
 }
 .user-section,
 .chatty-section {
@@ -24,7 +39,7 @@ body {
 }
 .mic{
     font-size:60vh;
-    color:#053885;
+    color:#607d8b;
 }
 .chatty{
     font-size: 60vh;
@@ -41,15 +56,17 @@ body {
     font-family: "Android";
     margin-top: 5vh;
     text-align:center;
-    color:white;
+    color:#03a9f4;
     font-size:7vh;
     border-radius: 20px;
-    border:2vh solid white;
+    border:2vh solid #03a9f4;
     transition:all 0.1s;
 }
 
 .btn-listen.record{
     background-color:#e53935;
+    color:white;
+    text-shadow:0rem 0rem 0.5rem white;
     border-color:#e53935;
     box-shadow:0rem 0rem 4rem #e53935;
 }
@@ -63,7 +80,7 @@ body {
 }
 
 #transcript{
-    color:white;
+    color:#eceff1;
     width:25%;
 }
 
