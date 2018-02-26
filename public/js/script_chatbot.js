@@ -256,7 +256,7 @@ socket.on("music",songData=>{
         const albumName = album.name;
         const image = album.images[0].url;
         const artist = artists[0].name;
-        const url = external_urls.spotify;
+        const url = external_urls.spotify.replace(".com",".com/embed");
         const songName = name;
         return {albumName,image,artist,url,songName};
     })
@@ -295,7 +295,7 @@ socket.on("music",songData=>{
     document.querySelectorAll(".choose").forEach(btn=>{
         btn.addEventListener("click",function(){
             const spotify = document.querySelector(".spotify");
-            spotify.classList.add(".shown");
+            spotify.classList.add("shown");
             spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
         });
     })

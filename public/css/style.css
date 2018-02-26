@@ -371,10 +371,11 @@ body {
     color:white;
     margin-top:10%;
     padding:5% 0;
+    cursor:pointer;
 }
 .info{
     width:100%;
-    font-size:2rem;
+    font-size:1.3rem;
     color:#eceff1;
 }
 
@@ -406,6 +407,7 @@ body {
     top:15%;
     right:-100%;
     transition: right 0.3s;
+    border:none;
 }
 
 .spotify.shown{
