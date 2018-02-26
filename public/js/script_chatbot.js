@@ -339,10 +339,6 @@ const addChoiceBtnEventListeners=()=>{
             document.querySelector(".user-section").style.display = "block";
             document.querySelector(".chatty-section").style.display = "none";
             document.querySelector("body").removeChild(document.querySelector(".swiper-container"));
-            setTimeout(()=>{
-                var event = new Event('click');
-                document.querySelector("#play-button").dispatchEvent(event);
-            },5000);
         });
     })
 }
