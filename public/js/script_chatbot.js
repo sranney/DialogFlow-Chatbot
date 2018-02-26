@@ -287,8 +287,8 @@ submit.addEventListener("click",function(){
     if(music===true){
         music=false;
         if(songSearch){socket.emit("music",{searchTerm,type:"song"});}
-        if(musicianSearch){socket.emit("music",{searchTerm,type:"song"});}
-        if(albumSearch){socket.emit("music",{searchTerm,type:"song"});}
+        if(musicianSearch){socket.emit("music",{searchTerm,type:"band"});}
+        if(albumSearch){socket.emit("music",{searchTerm,type:"album"});}
         songSearch=false;
         musicianSearch=false;
         albumSearch=false;
