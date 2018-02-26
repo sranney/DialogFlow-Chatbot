@@ -270,9 +270,7 @@ let mediaChoices = false;
 
 submit.addEventListener("click",function(){
 
-    songSearch=false;
-    musicianSearch=false;
-    albumSearch=false;
+
     usernameSearch=false;
     keywordSearch=false;
 
@@ -288,9 +286,12 @@ submit.addEventListener("click",function(){
 
     if(music===true){
         music=false;
-        songSearch = !songSearch;
-        
-        socket.emit("music",{searchTerm,type});
+        if(songSearch){socket.emit("music",{searchTerm,type:"song"});}
+        if(musicianSearch){socket.emit("music",{searchTerm,type:"song"});}
+        if(albumSearch){socket.emit("music",{searchTerm,type:"song"});}
+        songSearch=false;
+        musicianSearch=false;
+        albumSearch=false;
     }
 });
 
