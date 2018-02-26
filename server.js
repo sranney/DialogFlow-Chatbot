@@ -8,9 +8,7 @@ const app = express();
 app.use(express.static(__dirname+"/views"));
 app.use(express.static(__dirname+"/public"));
 
-var spotify = require('spotify-web-api-node');
-var spotifyAPI = require("./spotify_keys.js");
-
+const spotify = require("./mediaQs/spotify");
 const port = process.env.PORT||5000;
 //set up server to listen on port
 const server = app.listen(port);
@@ -58,31 +56,15 @@ io.on("connection",(socket)=>{
 		console.log(searchObj);
 		const {searchTerm,type} = searchObj;
 		if(type==="song"){
-			spotifySongSearch(searchTerm,socket)
+			spotify.spotifySongSearch(searchTerm,socket);
 		} else if(type==="band"){
-			console.log("artist search");
+			spotify.spotifyBandSearch(searchTerm,socket);
 		} else if(type==="album"){
 			console.log("album search");
 		}
 	})
 })
 
-function spotifySongSearch(songName,socket){
-	var searchedSong = songName;
-	var songs = [];//for pushing found songs to 
-	var songIDs = [];//for pushing ids of songs to - for same purpose as albums above
-	spotifyAPI.clientCredentialsGrant()
-	.then(function(data) {
-	    // Save the access token so that it's used in future calls
-	    spotifyAPI.setAccessToken(data.body['access_token']);
-	    return spotifyAPI.searchTracks(searchedSong)//search for song
-	}, function(err) {
-	    console.log('Something went wrong when retrieving an access token', err.message);
-	}).then(function(data){//for data returned from searchTracks above
-		var musicData = data.body.tracks.items;
-		socket.emit("music",{musicData,type:"song"});
-	});
-}
 
 // //function for searching by screenname
 // function twittByName(screenName){
