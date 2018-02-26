@@ -43,6 +43,7 @@ module.exports = {
         });
     },
     spotifyBandSearch_partTwo: (bandName,socket)=>{
+        console.log(bandName);
         spotifyAPI.clientCredentialsGrant()
         .then(function(data) {
             // Save the access token so that it's used in future calls
@@ -53,7 +54,7 @@ module.exports = {
 			var albums = artistDisco.map(artist=>{
                 return {artist: bandName,name:artistDisco[i].name,id:artistDisco[i].id}
             })
-            socket.emit("music",{musicData:albums,type:"album",artistDisco})
+            socket.emit("music",{musicData:albums,type:"album",artistDisco,data2})
         })
     }
 }
