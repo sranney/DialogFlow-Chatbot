@@ -37,6 +37,7 @@ module.exports = {
             for ( var i = 0 ; i < artistResults.length ; i++ ) {
                 musicData.push(artistResults[i].name);
             }
+            console.log(musicData);
             socket.emit("music",{musicData,type:"band"})
         });
     },
