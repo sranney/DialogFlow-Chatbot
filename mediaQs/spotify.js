@@ -2,7 +2,7 @@ var spotify = require('spotify-web-api-node');
 var spotifyAPI = require("./spotify_keys.js");
 
 module.exports = {
-    spotifySongSearch = (songName,socket)=>{
+    spotifySongSearch: (songName,socket)=>{
         var searchedSong = songName;
         var songs = [];//for pushing found songs to 
         var songIDs = [];//for pushing ids of songs to - for same purpose as albums above
