@@ -309,7 +309,7 @@ socket.on("music",spotifyData=>{
             const musicArr = organizingMusicResults(musicData);
             formResultDOMPresentation(musicArr,type);
         } else {formResultDOMPresentation(musicData,type);}
-        if(type!=="artist"){addChoiceBtnEventListeners();}
+        if(type!=="band"){addChoiceBtnEventListeners();}
         else {addChoiceBtnEventListeners_artistChooser();}
         setSwiperFunctionality();
     } else {
