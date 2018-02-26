@@ -33,20 +33,6 @@ recognition.addEventListener("result",e=>{
     let last = e.results.length - 1;
     let text = e.results[last][0].transcript;
     document.querySelector(".you").textContent = `You said: ${text}`;
-    const toLower = text.toLowerCase();
-    console.log(toLower);
-    console.log(media.indexOf(toLower));
-    const inMediaNames = media.indexOf(toLower) !== -1;
-    const Spotify = media.indexOf(toLower)>-1&&media.indexOf(toLower)<=2;
-    const Twitter = media.indexOf(toLower)>=3&&media.indexOf(toLower)<=4;
-    const YouTube = media.indexOf(toLower)>4;
-    const inSongTerms = musicSearch.songs.indexOf(toLower) !== -1;
-    const inAlbumTerms = musicSearch.albums.indexOf(toLower) !== -1;
-    const inArtistTerms = musicSearch.artists.indexOf(toLower) !== -1;
-    const inMusicTerms = inSongTerms || inAlbumTerms || inArtistTerms;
-    console.log(inMediaNames);
-    console.log(Spotify);
-    console.log(inMusicTerms);
     socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
 })
 
