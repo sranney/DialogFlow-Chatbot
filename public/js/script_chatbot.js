@@ -40,8 +40,8 @@ recognition.addEventListener("result",e=>{
         socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
     } else if(music){
         synthVoice("This is what I heard you say. Is this correct?");
-        submit.classList.add("shown");
-        submit.parentNode.querySelector(".heard").value=text;
+        submit.parentNode.classList.add("shown");
+        submit.parentNode.querySelector(".heard").innerHTML=text;
     } else if(video){
         socket.emit("video",text);
     } else if(tweet){
