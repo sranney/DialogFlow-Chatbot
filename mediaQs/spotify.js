@@ -51,12 +51,13 @@ module.exports = {
             return spotifyAPI.searchAlbums("artist:" + bandName)
         }).then(function(data2){
 			var artistDisco = data2.body.albums.items;
-			var albums = artistDisco.map(album=>{
-                const url = album.external_urls;
-                const image = album.images[0].url
-                return {artist: bandName,albumName:album.name,albumId:album.id,url,image}
-            });
-            socket.emit("music",{musicData:albums,type:"album",artistDisco,data2})
+			// var albums = artistDisco.map(album=>{
+            //     const url = album.external_urls.spotify.replace(".com",".com/embed");
+            //     const image = album.images[0].url
+            //     return {artist: bandName,albumName:album.name,albumId:album.id,url,image}
+            // });
+            // socket.emit("music",{musicData:albums,type:"album",artistDisco,data2})
+            socket.emit("music",{musicData:artistDisco,type:"album"})
         })
     }
 }
