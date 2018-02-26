@@ -280,7 +280,7 @@ socket.on("music",songData=>{
         info.appendChild(stats);
         swiperSlide.appendChild(btn);
         swiperSlide.appendChild(info);
-
+        swiperWrapper.appendChild(swiperSlide);
     })
     // <div class="swiper-slide">
     //     <div class="choose">Choose</div><br>
