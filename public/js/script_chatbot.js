@@ -11,6 +11,7 @@ const utterance = new SpeechSynthesisUtterance();
 //set up socket.io
 const socket = io();
 
+let songSearch=false,musicianSearch=false,albumSearch=false;
 
 //event listener for when the "Speak" button is clicked
 //handles some css but most importantly starts the web speech api speech recognition to pick up on audio input
@@ -22,7 +23,7 @@ document.querySelector(".btn-listen").addEventListener("click",()=>{
 })
 
 //event listener for the web speech api speech recognition feature - triggers when the api recognizes that the user has finished speaking
-recognition.addEventListener("result",(e)=>{
+recognition.addEventListener("result",e=>{
     //some css and html changes
     document.querySelector(".mic").classList.remove("glow");
     document.querySelector(".btn-listen").classList.remove("record");
@@ -32,10 +33,24 @@ recognition.addEventListener("result",(e)=>{
     let last = e.results.length - 1;
     let text = e.results[last][0].transcript;
     document.querySelector(".you").textContent = `You said: ${text}`;
+    const toLower = text.toLowerCase();
+    console.log(toLower);
+    console.log(media.indexOf(toLower));
+    const inMediaNames = media.indexOf(toLower) !== -1;
+    const Spotify = media.indexOf(toLower)>-1&&media.indexOf(toLower)<=2;
+    const Twitter = media.indexOf(toLower)>=3&&media.indexOf(toLower)<=4;
+    const YouTube = media.indexOf(toLower)>4;
+    const inSongTerms = musicSearch.songs.indexOf(toLower) !== -1;
+    const inAlbumTerms = musicSearch.albums.indexOf(toLower) !== -1;
+    const inArtistTerms = musicSearch.artists.indexOf(toLower) !== -1;
+    const inMusicTerms = inSongTerms || inAlbumTerms || inArtistTerms;
+    console.log(inMediaNames);
+    console.log(Spotify);
+    console.log(inMusicTerms);
     socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
 })
 
-synthVoice = (text) => {//function for the browser to speak text that is fed to it - will say what APIAI sends back as responses to what the web speech api recognized the user saying and was sent to the server
+synthVoice = text => {//function for the browser to speak text that is fed to it - will say what APIAI sends back as responses to what the web speech api recognized the user saying and was sent to the server
     console.log(utterance);
     utterance.text = text;//set the text to be spoken
     utterance.volume = 2;
@@ -43,18 +58,27 @@ synthVoice = (text) => {//function for the browser to speak text that is fed to 
     synth.speak(utterance);//speak those words
 }
 
-socket.on('bot reply', (replyText) => {//socket.io event listener to pick up responses from the server regarding what the APIAI said
-    changeIcon_switch(replyText);
-    synthVoice(replyText);//pass this info to the function defined above
-    document.querySelector(".user-section").style.display = "none";
-    document.querySelector(".chatty-section").style.display = "block";
-    document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen
+socket.on('bot reply', (botObj) => {//socket.io event listener to pick up responses from the server regarding what the APIAI said
+    const replyText = botObj.aiText;
+    if(botObj.type==="other"){
+        changeIcon_switch(replyText);
+        synthVoice(replyText);//pass this info to the function defined above
+        document.querySelector(".user-section").style.display = "none";
+        document.querySelector(".chatty-section").style.display = "block";
+        document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen
+    } else {
+        changeIcon(`social-${botObj.type}`);
+        document.querySelector(".user-section").style.display = "none";
+        document.querySelector(".chatty-section").style.display = "block";
+        document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen        
+    }
 });
 
 let currentIcon = "robot-face";
 let prefix="icofont-";
 let iconGroup = "icofont";
 
+//apiai responses
 changeIcon_switch = (replyText)=>{
     switch(replyText){
         case "moo, I am a cow, moo, moo, moo":
@@ -99,6 +123,7 @@ changeIcon_switch = (replyText)=>{
         case "ha. hahaha. hahaha":            
             changeIcon("emo-simple-smile");
             break;
+        //weather responses from apiai
         case "For what city would you like the weather?":
             changeIcon("ui-weather")                 ;
             break;
@@ -113,6 +138,7 @@ changeIcon_switch = (replyText)=>{
     }
 }
 
+//setting icon to be shown for apiai weather
 changeIcon_weather = text => {
     if(text.match(/cloud/g)){
         changeIcon("cloud",true);
@@ -168,6 +194,8 @@ changeIcon_weather = text => {
     
 }
 
+//changing the actual shown icon - weather will be true if the response is weather related and will be false if it is not
+//newIcon is the icon that will replace the current icon. it is set in changeIcon_weather or changeIcon_switch above
 changeIcon = (newIcon,weather)=>{
     const chattyFace = document.getElementById("chatty-face");
     chattyFace.classList.remove(iconGroup);
@@ -187,7 +215,15 @@ changeIcon = (newIcon,weather)=>{
     }
 }
 
+//when the browser has finished speaking
 utterance.onend = (e)=>{
     document.querySelector(".user-section").style.display = "block";
     document.querySelector(".chatty-section").style.display = "none";
 }
+
+//submitting verified information to server to get media
+const submit = document.querySelector(".submit");
+submit.addEventListener("click",function(){
+    songSearch = !songSearch;
+    this.parentNode.classList.remove("shown");
+});

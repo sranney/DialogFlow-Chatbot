@@ -4,13 +4,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/themify-icons/0.1.2/css/themify-icons.css">
         <link rel="stylesheet" href="css/icofont.css">
         <link rel="stylesheet" href="css/weather-icons.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.sound.js"></script>
     </head>
     <body>
         <div class="title">
-            Chats with Chatty, the Chat Bot <i class="icofont icofont-robot-face"></i> <i class="icofont icofont-ui-weather"></i>
+            Chats with Chatty<span class="extra-title">, the Chat Bot</span> <i class="icofont icofont-robot-face"></i> <i class="icofont icofont-ui-weather"></i>
         </div>
         <div class="user-section">  
             <i class="ti-microphone mic"></i>
@@ -24,7 +21,44 @@
             <p class="you">You Said: </p>
             <p class="chatbot">Chatty Said: </p>
         </div>
+        <div class="tooltip_container">
+            <div class="suggestedActions">
+                <i class="icofont icofont-megaphone"></i>
+            </div>
+            <div class="suggestedActions_behind"></div>
+        </div>
+
+        <ul class="prompts">
+            <li>Voice Commands</li>
+            <li><i class="icofont icofont-ui-weather"></i> <span>"Weather"</span></li>
+            <li><i class="icofont icofont-social-spotify"></i> <span>"Spotify" or "Music"</span></li>
+            <li><i class="icofont icofont-social-twitter"></i> <span>"Twitter" or "Tweets"</span></li>
+            <li><i class="icofont icofont-social-youtube-play"></i> <span>"YouTube" or "Videos"</span></li>
+            <li><i class="icofont icofont-ui-chat"></i> <span>Small Talk - Click Me!</span></li>
+        </ul>  
+
+        <div class="verificationForm">
+            <textarea class="heard"></textarea>
+            <div class="submit">Submit</div>
+        </div>
+
+        <div class="modal_overlay">
+            <div class="modal_content">
+                <i class="ti-close"></i>
+                <h1>Conversation Topics</h1>
+                <p>You can ask things like the following:</p>
+                <ul>
+                    <li>About Chatty<br>"Who are you?" /// "How old are you?" /// "You're annoying" /// "You're bad" /// "Can you get smarter?" /// "Can you help me?" /// "Do you have a hobby?"</li>
+                    <li>Greetings<br>"Good evening" /// "Good morning" /// "Hello" /// "How are you?" /// "Nice to meet you" /// "Nice to see you" /// "What's up"</li>
+                    <li>About You<br>"I'm angry" /// "I'm back" /// "I'm bored" /// "I am busy" /// "I can't sleep" /// "Today's my birthday" /// "I am here" /// "I'm kidding" /// "I like you"</li>
+                    <li>Other<br>"You're wrong" /// "What do you like to do?"</li>
+                </ul>
+                <p>Try out variations to these statements!</p>
+            </div>
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
-        <script src="js/script.js"></script>
+        <script src="js/script_dom.js"></script>
+        <script src="js/script_chatbot.js"></script>
     </body>
 </html>
