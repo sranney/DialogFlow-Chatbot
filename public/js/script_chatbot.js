@@ -241,11 +241,24 @@ utterance.onend = (e)=>{
 //submitting verified information to server to get media
 
 submit.addEventListener("click",function(){
+    music=false;
     songSearch = !songSearch;
     this.parentNode.classList.remove("shown");
     socket.emit("music",this.parentNode.querySelector(".heard").innerHTML);
+    this.parentNode.querySelector(".heard").innerHTML="";
 });
 
+//for getting back music data from spotify
 socket.on("music",songData=>{
     console.log(songData);
+    const choiceList = songData.map(song=>{
+        const {album,artists,external_urls,name} = song;
+        const album = album.name;
+        const image = album.images[0].url;
+        const artist = artists[0].name;
+        const url = external_urls.spotify;
+        const song = name;
+        return {album,image,artist,url,song};
+    })
+    console.log(choiceList);
 })
