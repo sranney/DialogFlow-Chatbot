@@ -52,7 +52,7 @@ module.exports = {
         }).then(function(data2){
 			var artistDisco = data2.body.albums.items;
 			var albums = artistDisco.map(artist=>{
-                return {artist: bandName,name:artistDisco[i].name,id:artistDisco[i].id}
+                return {artist: bandName,album:artist.name,albumId:artist.id}
             })
             socket.emit("music",{musicData:albums,type:"album",artistDisco,data2})
         })
