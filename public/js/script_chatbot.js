@@ -304,7 +304,7 @@ socket.on("music",songData=>{
             spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
             document.querySelector(".user-section").style.display = "block";
             document.querySelector(".chatty-section").style.display = "none";
-            document.removeChild(swiperContainer);
+            document.querySelector("body").removeChild(".swiper-container");
         });
     })
 
