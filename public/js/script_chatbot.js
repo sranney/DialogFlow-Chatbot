@@ -65,7 +65,7 @@ recognition.addEventListener("result",e=>{
             verification.querySelector(".heard").innerHTML=text;
             verification.querySelector(".heard").value=text;
         } else {//get 
-
+            socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
         }//getting the second part of search - search by - for spotify or twitter
     }
 })
