@@ -250,6 +250,8 @@ submit.addEventListener("click",function(){
 
 //for getting back music data from spotify
 socket.on("music",songData=>{
+    synthVoice("Please choose the song that you'd like to hear from this list. You can swipe up and down to see the rest of the list");//pass this info to the function defined above
+    document.querySelector(".user-section").style.display = "none";    
     console.log(songData);
     const choiceList = songData.map(song=>{
         const {album,artists,external_urls,name} = song;
