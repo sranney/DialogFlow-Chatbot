@@ -234,10 +234,12 @@ changeIcon = (newIcon,weather)=>{
 
 //when the browser has finished speaking
 utterance.onend = (e)=>{
-    document.querySelector(".user-section").style.display = "block";
-    document.querySelector(".chatty-section").style.display = "none";
+    if(!mediaChoices){
+        document.querySelector(".user-section").style.display = "block";
+        document.querySelector(".chatty-section").style.display = "none";
+    }
 }
-
+let mediaChoices = false;
 //submitting verified information to server to get media
 
 submit.addEventListener("click",function(){
@@ -250,6 +252,7 @@ submit.addEventListener("click",function(){
 
 //for getting back music data from spotify
 socket.on("music",songData=>{
+    mediaChoices = true;
     synthVoice("Please choose the song that you'd like to hear from this list. You can swipe up and down to see the rest of the list");//pass this info to the function defined above
     document.querySelector(".user-section").style.display = "none";    
     console.log(songData);

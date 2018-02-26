@@ -364,6 +364,8 @@ body {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
+  background-color:rgba(255,255,255,0.5);
+  margin-top:10px;
 }
 .choose{
     width:100%;
