@@ -48,6 +48,7 @@ socket.on('bot reply', (botObj) => {//socket.io event listener to pick up respon
     const replyText = botObj.aiText;
     if(botObj.type==="other"){
         document.getElementById("chatty-face").style.color = "white";
+        document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem white";
         changeIcon_switch(replyText);
         synthVoice(replyText);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
@@ -57,10 +58,13 @@ socket.on('bot reply', (botObj) => {//socket.io event listener to pick up respon
         changeIcon(`social-${botObj.type}`);
         if(botObj.type==="twitter"){
             document.getElementById("chatty-face").style.color = "#00aced";
+            document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #00aced";
         } else if(botObj.type==="spotify"){
             document.getElementById("chatty-face").style.color = "#1db954";
+            document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #1db954";
         } else if(botObj.type==="youtube"){
             document.getElementById("chatty-face").style.color = "#ff0000";
+            document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #ff0000";
         }
         synthVoice(replyText);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
