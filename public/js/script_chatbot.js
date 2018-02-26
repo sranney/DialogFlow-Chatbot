@@ -291,7 +291,14 @@ socket.on("music",songData=>{
 
     swiperContainer.appendChild(swiperWrapper);
     document.querySelector("body").appendChild(swiperContainer);
-    
+
+    document.querySelectorAll(".choose").forEach(btn=>{
+        btn.addEventListener("click",function(){
+            const spotify = document.querySelector(".spotify");
+            spotify.classList.add(".shown");
+            spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
+        });
+    })
 
     var swiper = new Swiper('.swiper-container', {
         direction: 'vertical'
