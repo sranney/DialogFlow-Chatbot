@@ -333,6 +333,7 @@ body {
 
 .verificationForm.shown{
     right:10px;
+    z-index:1000;
 }
 
 .verificationForm>textarea{
