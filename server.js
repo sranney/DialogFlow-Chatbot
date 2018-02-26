@@ -8,6 +8,9 @@ const app = express();
 app.use(express.static(__dirname+"/views"));
 app.use(express.static(__dirname+"/public"));
 
+var spotify = require('spotify-web-api-node');
+var spotifyAPI = require("./spotify_keys.js");
+
 const port = process.env.PORT||5000;
 //set up server to listen on port
 const server = app.listen(port);
@@ -52,7 +55,7 @@ io.on("connection",(socket)=>{
         apiaiReq.end();
 	})
 	socket.on("music",text=>{
-		console.log(text);
+		
 	})
 })
 
@@ -91,4 +94,21 @@ function twittByKeyW(keyword){
 		}
 		doAnotherAction();//runs the function asking user if they want to do another action which then depending on answer will either quit program or run the user choice function again
 	})
+}
+
+function spotifySongSearch(songName,socket){
+	var searchedSong = songName;
+	var songs = [];//for pushing found songs to 
+	var songIDs = [];//for pushing ids of songs to - for same purpose as albums above
+	spotifyAPI.clientCredentialsGrant()
+	.then(function(data) {
+	    // Save the access token so that it's used in future calls
+	    spotifyAPI.setAccessToken(data.body['access_token']);
+	    return spotifyAPI.searchTracks(searchedSong)//search for song
+	}, function(err) {
+	    console.log('Something went wrong when retrieving an access token', err.message);
+	}).then(function(data){//for data returned from searchTracks above
+		var songData = data.body.tracks.items;
+		socket.emit("music",songData);
+	});
 }

@@ -245,3 +245,7 @@ submit.addEventListener("click",function(){
     this.parentNode.classList.remove("shown");
     socket.emit("music",this.parentNode.querySelector(".heard").innerHTML);
 });
+
+socket.on("music",songData=>{
+    console.log(songData);
+})
