@@ -48,7 +48,7 @@ module.exports = {
         .then(function(data) {
             // Save the access token so that it's used in future calls
             spotifyAPI.setAccessToken(data.body['access_token']);
-            return spotifyAPI.searchAlbums("artist:" + response3.artistChoice)
+            return spotifyAPI.searchAlbums("artist:" + bandName)
         }).then(function(data2){
 			var artistDisco = data2.body.albums.items;
 			var albums = artistDisco.map(artist=>{
