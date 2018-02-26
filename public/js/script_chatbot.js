@@ -305,7 +305,7 @@ socket.on("music",spotifyData=>{
         synthVoice(`Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";    
         console.log(musicData);
-        if(type==="song" || type==="album"){
+        if(type==="song"){
             const musicArr = organizingMusicResults(musicData);
             formResultDOMPresentation(musicArr,type);
         } else {formResultDOMPresentation(musicData,type);}
