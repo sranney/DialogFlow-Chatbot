@@ -42,6 +42,7 @@ recognition.addEventListener("result",e=>{
         synthVoice("This is what I heard you say. Is this correct?");
         submit.parentNode.classList.add("shown");
         submit.parentNode.querySelector(".heard").innerHTML=text;
+        submit.parentNode.querySelector(".heard").value=text;
     } else if(video){
         socket.emit("video",text);
     } else if(tweet){
@@ -246,8 +247,15 @@ submit.addEventListener("click",function(){
     music=false;
     songSearch = !songSearch;
     this.parentNode.classList.remove("shown");
-    socket.emit("music",this.parentNode.querySelector(".heard").innerHTML);
+    let searchTerm = this.parentNode.querySelector(".heard");
+    if(searchTerm.innerHTML !== searchTerm.value){
+        searchTerm = searchTerm.value;
+    } else {
+        searchTerm = searchTerm.innerHTML;
+    }
+    socket.emit("music",searchTerm);
     this.parentNode.querySelector(".heard").innerHTML="";
+    this.parentNode.querySelector(".heard").value="";
 });
 
 //for getting back music data from spotify
