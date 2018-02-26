@@ -57,7 +57,7 @@ io.on("connection",(socket)=>{
 	socket.on("music",searchObj=>{
 		const {searchTerm,type} = searchObj;
 		if(type==="song"){
-			spotifySongSearch(text,socket)
+			spotifySongSearch(searchTerm,socket)
 		} else if(type==="band"){
 			console.log("artist search");
 		} else if(type==="album"){
