@@ -22,6 +22,8 @@ document.querySelector(".btn-listen").addEventListener("click",()=>{
     recognition.start();
 })
 
+const submit = document.querySelector(".submit");
+
 //event listener for the web speech api speech recognition feature - triggers when the api recognizes that the user has finished speaking
 recognition.addEventListener("result",e=>{
     //some css and html changes
@@ -37,7 +39,9 @@ recognition.addEventListener("result",e=>{
     if(!media){
         socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
     } else if(music){
-        socket.emit("music",text);
+        synthVoice("This is what I heard you say. Is this correct?");
+        submit.classList.add("shown");
+        submit.parentNode.querySelector(".heard").value=text;
     } else if(video){
         socket.emit("video",text);
     } else if(tweet){
@@ -235,8 +239,9 @@ utterance.onend = (e)=>{
 }
 
 //submitting verified information to server to get media
-const submit = document.querySelector(".submit");
+
 submit.addEventListener("click",function(){
     songSearch = !songSearch;
     this.parentNode.classList.remove("shown");
+    socket.emit("music",this.parentNode.querySelector(".heard").value);
 });
