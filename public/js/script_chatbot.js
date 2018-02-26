@@ -391,7 +391,7 @@ const addChoiceBtnEventListeners=()=>{
     })
 }
 
-const addChoiceBtnEventListeners=()=>{
+const addChoiceBtnEventListeners_artistChooser=()=>{
     document.querySelectorAll(".choose.artist").forEach(btn=>{
         btn.addEventListener("click",function(){
             socket.emit("band choice",this.parentNode.querySelector(".info>.stats").innerHTML);
