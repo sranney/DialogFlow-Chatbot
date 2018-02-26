@@ -341,7 +341,7 @@ const formResultDOMPresentation = (choiceList,type)=>{
 
     choiceList.forEach(choice=>{
         if(type==="song"){const {albumName,image,artist,url,songName} = choice;}
-        if(type==="album"){const {albumName,image,artist,url,songName} = choice;}
+        if(type==="album"){const {albumName,image,artist,url,albumId} = choice;}
         const swiperSlide = document.createElement("div");
         swiperSlide.classList.add("swiper-slide");
         const btn = document.createElement("div");
