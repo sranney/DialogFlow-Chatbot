@@ -1,5 +1,5 @@
 var spotify = require('spotify-web-api-node');
-var spotifyAPI = require("../mediaQs/spotify_keys.js");
+var spotifyAPI = require("../spotify_keys.js");
 
 module.exports = {
     spotifySongSearch: (songName,socket)=>{
