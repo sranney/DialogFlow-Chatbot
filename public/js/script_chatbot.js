@@ -251,65 +251,71 @@ submit.addEventListener("click",function(){
 });
 
 //for getting back music data from spotify
-socket.on("music",songData=>{
-    mediaChoices = true;
-    synthVoice("Please choose the song that you'd like to hear from this list. You can swipe up and down to see the rest of the list");//pass this info to the function defined above
-    document.querySelector(".user-section").style.display = "none";    
-    console.log(songData);
-    const choiceList = songData.map(song=>{
-        const {album,artists,external_urls,name} = song;
-        const albumName = album.name;
-        const image = album.images[0].url;
-        const artist = artists[0].name;
-        const url = external_urls.spotify.replace(".com",".com/embed");
-        const songName = name;
-        return {albumName,image,artist,url,songName};
-    })
+socket.on("music",musicData=>{
+    if(musicData.length>0){
+        mediaChoices = true;
+        synthVoice("Please choose the song that you'd like to hear from this list. You can swipe up and down to see the rest of the list");//pass this info to the function defined above
+        document.querySelector(".user-section").style.display = "none";    
+        console.log(musicData);
+        const choiceList = musicData.map(music=>{
+            const {album,artists,external_urls,name} = music;
+            const albumName = album.name;
+            const image = album.images[0].url;
+            const artist = artists[0].name;
+            const url = external_urls.spotify.replace(".com",".com/embed");
+            const songName = name;
+            return {albumName,image,artist,url,songName};
+        })
 
-    const swiperContainer = document.createElement("div");
-    swiperContainer.classList.add("swiper-container");
-    const swiperWrapper = document.createElement("div");
-    swiperWrapper.classList.add("swiper-wrapper");
-    
+        const swiperContainer = document.createElement("div");
+        swiperContainer.classList.add("swiper-container");
+        const swiperWrapper = document.createElement("div");
+        swiperWrapper.classList.add("swiper-wrapper");
+        
 
-    choiceList.forEach(choice=>{
-        const {albumName,image,artist,url,songName} = choice;
-        const swiperSlide = document.createElement("div");
-        swiperSlide.classList.add("swiper-slide");
-        const btn = document.createElement("div");
-        btn.classList.add("choose");
-        btn.innerHTML = "Choose";
-        const info = document.createElement("div");
-        info.classList.add("info");
-        info.setAttribute("url",url);
-        const img = document.createElement("img");
-        img.classList.add("img-thumbnail");
-        img.setAttribute("src",image);
-        info.appendChild(img);
-        const stats = document.createElement("p");
-        stats.innerHTML=`${artist} - ${albumName} - ${songName}`;
-        info.appendChild(stats);
-        swiperSlide.appendChild(btn);
-        swiperSlide.appendChild(info);
-        swiperWrapper.appendChild(swiperSlide);
-    })
+        choiceList.forEach(choice=>{
+            const {albumName,image,artist,url,songName} = choice;
+            const swiperSlide = document.createElement("div");
+            swiperSlide.classList.add("swiper-slide");
+            const btn = document.createElement("div");
+            btn.classList.add("choose");
+            btn.innerHTML = "Choose";
+            const info = document.createElement("div");
+            info.classList.add("info");
+            info.setAttribute("url",url);
+            const img = document.createElement("img");
+            img.classList.add("img-thumbnail");
+            img.setAttribute("src",image);
+            info.appendChild(img);
+            const stats = document.createElement("p");
+            stats.innerHTML=`${artist} - ${albumName} - ${songName}`;
+            info.appendChild(stats);
+            swiperSlide.appendChild(btn);
+            swiperSlide.appendChild(info);
+            swiperWrapper.appendChild(swiperSlide);
+        })
 
-    swiperContainer.appendChild(swiperWrapper);
-    document.querySelector("body").appendChild(swiperContainer);
+        swiperContainer.appendChild(swiperWrapper);
+        document.querySelector("body").appendChild(swiperContainer);
 
-    document.querySelectorAll(".choose").forEach(btn=>{
-        btn.addEventListener("click",function(){
-            mediaChoices = false;
-            const spotify = document.querySelector(".spotify");
-            spotify.classList.add("shown");
-            spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
-            document.querySelector(".user-section").style.display = "block";
-            document.querySelector(".chatty-section").style.display = "none";
-            document.querySelector("body").removeChild(document.querySelector(".swiper-container"))
-        });
-    })
+        document.querySelectorAll(".choose").forEach(btn=>{
+            btn.addEventListener("click",function(){
+                mediaChoices = false;
+                const spotify = document.querySelector(".spotify");
+                spotify.classList.add("shown");
+                spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
+                document.querySelector(".user-section").style.display = "block";
+                document.querySelector(".chatty-section").style.display = "none";
+                document.querySelector("body").removeChild(document.querySelector(".swiper-container"))
+            });
+        })
 
-    var swiper = new Swiper('.swiper-container', {
-        direction: 'vertical'
-    });    
+        var swiper = new Swiper('.swiper-container', {
+            direction: 'vertical'
+        });    
+    } else {
+        synthVoice("I did not find any results for this name from the list. Please try again");
+        document.querySelector(".user-section").style.display = "none";
+        document.querySelector(".chatty-section").style.display = "block";
+    }
 })
