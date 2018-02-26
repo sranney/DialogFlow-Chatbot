@@ -302,6 +302,8 @@ socket.on("music",songData=>{
             const spotify = document.querySelector(".spotify");
             spotify.classList.add("shown");
             spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
+            document.querySelector(".user-section").style.display = "block";
+            document.querySelector(".chatty-section").style.display = "none";
         });
     })
 
