@@ -55,6 +55,7 @@ io.on("connection",(socket)=>{
         apiaiReq.end();
 	})
 	socket.on("music",searchObj=>{
+		console.log(searchObj);
 		const {searchTerm,type} = searchObj;
 		if(type==="song"){
 			spotifySongSearch(searchTerm,socket)
