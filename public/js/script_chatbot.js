@@ -346,7 +346,7 @@ const formResultDOMPresentation = (choiceList,type)=>{
         swiperSlide.classList.add("swiper-slide");
         const btn = document.createElement("div");
         btn.classList.add("choose");
-        if(type==="artist"){btn.classList.add("artist");}
+        if(type==="band"){btn.classList.add("artist");}
         btn.innerHTML = "Choose";
         const info = document.createElement("div");
         info.classList.add("info");
