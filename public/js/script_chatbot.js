@@ -1,5 +1,3 @@
-//opening message
-synthVoice("Thank you for visiting with me. I am currently undergoing a lot of changes and am adding new features. Currently, you can check the weather, talk with me and get spotify results for songs. However, none of the other features work right now. Please visit me again to test those features out. Thanks!");
 
 //set up microphone listener with SpeechRecognition API
 const SpeechRecognition = window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -10,6 +8,17 @@ recognition.interimResults = false;//only want info to be sent to server once th
 //set up text to audio with Speech Synthesis API
 const synth = window.speechSynthesis;
 const utterance = new SpeechSynthesisUtterance();
+
+synthVoice = text => {//function for the browser to speak text that is fed to it - will say what APIAI sends back as responses to what the web speech api recognized the user saying and was sent to the server
+    console.log(utterance);
+    utterance.text = text;//set the text to be spoken
+    utterance.volume = 2;
+    utterance.rate = .8;
+    synth.speak(utterance);//speak those words
+}
+
+//opening message
+synthVoice("Thank you for visiting with me. I am currently undergoing a lot of changes and am adding new features. Currently, you can check the weather, talk with me and get spotify results for songs. However, none of the other features work right now. Please visit me again to test those features out. Thanks!");
 
 //set up socket.io
 const socket = io();
@@ -53,13 +62,6 @@ recognition.addEventListener("result",e=>{
     }
 })
 
-synthVoice = text => {//function for the browser to speak text that is fed to it - will say what APIAI sends back as responses to what the web speech api recognized the user saying and was sent to the server
-    console.log(utterance);
-    utterance.text = text;//set the text to be spoken
-    utterance.volume = 2;
-    utterance.rate = .8;
-    synth.speak(utterance);//speak those words
-}
 
 let music=false,video=false,tweet=false;
 
