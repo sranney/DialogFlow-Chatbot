@@ -55,7 +55,7 @@ io.on("connection",(socket)=>{
         apiaiReq.end();
 	})
 	socket.on("music",text=>{
-		
+		spotifySongSearch(text,socket)
 	})
 })
 
