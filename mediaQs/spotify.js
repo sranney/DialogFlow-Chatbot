@@ -42,5 +42,5 @@ module.exports = {
             socket.emit("music",{musicData,type:"band"})
         });
     },
-    spotifyBandSearch_partOne: (bandName,socket)=>{}
+    spotifyBandSearch_partTwo: (bandName,socket)=>{}
 }
