@@ -394,7 +394,7 @@ const addChoiceBtnEventListeners=()=>{
 const addChoiceBtnEventListeners_artistChooser=()=>{
     document.querySelectorAll(".choose.artist").forEach(btn=>{
         btn.addEventListener("click",function(){
-            socket.emit("band choice",this.parentNode.querySelector(".info>.stats").innerHTML);
+            socket.emit("band choice",this.parentNode.querySelector(".info>p").innerHTML);
             document.querySelector("body").removeChild(document.querySelector(".swiper-container"));
         });
     })
