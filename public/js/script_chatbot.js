@@ -1,3 +1,6 @@
+//opening message
+synthVoice("Thank you for visiting with me. I am currently undergoing a lot of changes and am adding new features. Currently, you can check the weather, talk with me and get spotify results for songs. However, none of the other features work right now. Please visit me again to test those features out. Thanks!");
+
 //set up microphone listener with SpeechRecognition API
 const SpeechRecognition = window.SpeechRecognition||window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -11,7 +14,7 @@ const utterance = new SpeechSynthesisUtterance();
 //set up socket.io
 const socket = io();
 
-let songSearch=false,musicianSearch=false,albumSearch=false;
+let songSearch=false,musicianSearch=false,albumSearch=false,mediaType=null;
 
 //event listener for when the "Speak" button is clicked
 //handles some css but most importantly starts the web speech api speech recognition to pick up on audio input
@@ -72,6 +75,7 @@ socket.on('bot reply', (botObj) => {//socket.io event listener to pick up respon
         document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen
     } else {
         changeIcon(`social-${botObj.type}`);
+        mediaType=botObj.type;
         if(botObj.type==="twitter"){
             document.getElementById("chatty-face").style.color = "#00aced";
             document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #00aced";
@@ -245,6 +249,7 @@ let mediaChoices = false;
 
 submit.addEventListener("click",function(){
     music=false;
+    mediaType=null;
     songSearch = !songSearch;
     this.parentNode.classList.remove("shown");
     let searchTerm = this.parentNode.querySelector(".heard");
@@ -253,16 +258,17 @@ submit.addEventListener("click",function(){
     } else {
         searchTerm = searchTerm.innerHTML;
     }
-    socket.emit("music",searchTerm);
+    socket.emit("music",{searchTerm,type});
     this.parentNode.querySelector(".heard").innerHTML="";
     this.parentNode.querySelector(".heard").value="";
 });
 
 //for getting back music data from spotify
-socket.on("music",musicData=>{
+socket.on("music",spotifyData=>{
+    const {musicData,type} = spotifyData;
     if(musicData.length>0){
         mediaChoices = true;
-        synthVoice("Please choose the song that you'd like to hear from this list. You can swipe up and down to see the rest of the list");//pass this info to the function defined above
+        synthVoice(`Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";    
         console.log(musicData);
         const musicArr = organizingResults(musicData);
