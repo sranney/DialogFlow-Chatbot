@@ -257,8 +257,8 @@ socket.on("music",songData=>{
         const image = album.images[0].url;
         const artist = artists[0].name;
         const url = external_urls.spotify;
-        const song = name;
-        return {albumName,image,artist,url,song};
+        const songName = name;
+        return {albumName,image,artist,url,songName};
     })
     console.log(choiceList);
 })
