@@ -51,6 +51,9 @@ io.on("connection",(socket)=>{
         })//end apiai utilization
         apiaiReq.end();
 	})
+	socket.on("music",text=>{
+		console.log(text);
+	})
 })
 
 //function for searching by screenname

@@ -33,7 +33,16 @@ recognition.addEventListener("result",e=>{
     let last = e.results.length - 1;
     let text = e.results[last][0].transcript;
     document.querySelector(".you").textContent = `You said: ${text}`;
-    socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
+    let media = music||video||tweet;
+    if(!media){
+        socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
+    } else if(music){
+        socket.emit("music",text);
+    } else if(video){
+        socket.emit("video",text);
+    } else if(tweet){
+        socket.emit("tweet",text);
+    }
 })
 
 synthVoice = text => {//function for the browser to speak text that is fed to it - will say what APIAI sends back as responses to what the web speech api recognized the user saying and was sent to the server
@@ -43,6 +52,8 @@ synthVoice = text => {//function for the browser to speak text that is fed to it
     utterance.rate = .8;
     synth.speak(utterance);//speak those words
 }
+
+let music=false,video=false,tweet=false;
 
 socket.on('bot reply', (botObj) => {//socket.io event listener to pick up responses from the server regarding what the APIAI said
     const replyText = botObj.aiText;
@@ -65,6 +76,9 @@ socket.on('bot reply', (botObj) => {//socket.io event listener to pick up respon
         } else if(botObj.type==="youtube"){
             document.getElementById("chatty-face").style.color = "#ff0000";
             document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #ff0000";
+        }
+        if(replyText==="what song do you want to listen to?"){
+            music=true;
         }
         synthVoice(replyText);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
