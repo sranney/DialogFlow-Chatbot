@@ -253,12 +253,12 @@ socket.on("music",songData=>{
     console.log(songData);
     const choiceList = songData.map(song=>{
         const {album,artists,external_urls,name} = song;
-        const album = album.name;
+        const albumName = album.name;
         const image = album.images[0].url;
         const artist = artists[0].name;
         const url = external_urls.spotify;
         const song = name;
-        return {album,image,artist,url,song};
+        return {albumName,image,artist,url,song};
     })
     console.log(choiceList);
 })
