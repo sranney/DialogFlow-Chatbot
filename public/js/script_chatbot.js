@@ -304,8 +304,9 @@ socket.on("music",spotifyData=>{
         synthVoice(`Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";    
         console.log(musicData);
-        const musicArr = organizingResults(musicData);
-        formResultDOMPresentation(musicArr);
+        if(type==="song"){const musicArr = organizingMusicResults(musicData);}
+        if(type==="album"){const musicArr = organizingMusicResults(musicData);}
+        formResultDOMPresentation(musicArr,type);
         addChoiceBtnEventListeners();
         setSwiperFunctionality();
     } else {
@@ -316,7 +317,7 @@ socket.on("music",spotifyData=>{
     }
 })
 
-const organizingResults = musicData=>{
+const organizingMusicResults = musicData=>{
     return musicData.map(music=>{
         const {album,artists,external_urls,name} = music;
         const albumName = album.name;
@@ -328,7 +329,7 @@ const organizingResults = musicData=>{
     })
 }
 
-const formResultDOMPresentation = choiceList=>{
+const formResultDOMPresentation = (choiceList,type)=>{
     const swiperContainer = document.createElement("div");
     swiperContainer.classList.add("swiper-container");
     const swiperWrapper = document.createElement("div");
@@ -336,7 +337,8 @@ const formResultDOMPresentation = choiceList=>{
     
 
     choiceList.forEach(choice=>{
-        const {albumName,image,artist,url,songName} = choice;
+        if(type==="song"){const {albumName,image,artist,url,songName} = choice;}
+        if(type==="album"){const {albumName,image,artist,url,songName} = choice;}
         const swiperSlide = document.createElement("div");
         swiperSlide.classList.add("swiper-slide");
         const btn = document.createElement("div");
@@ -344,13 +346,16 @@ const formResultDOMPresentation = choiceList=>{
         btn.innerHTML = "Choose";
         const info = document.createElement("div");
         info.classList.add("info");
-        info.setAttribute("url",url);
-        const img = document.createElement("img");
-        img.classList.add("img-thumbnail");
-        img.setAttribute("src",image);
-        info.appendChild(img);
+        if(type==="song"||type==="album"){
+            info.setAttribute("url",url);
+            const img = document.createElement("img");
+            img.classList.add("img-thumbnail");
+            img.setAttribute("src",image);
+            info.appendChild(img);
+        }
         const stats = document.createElement("p");
-        stats.innerHTML=`${artist} - ${albumName} - ${songName}`;
+        if(type==="song"||type==="album"){stats.innerHTML=`${artist} - ${albumName} - ${songName}`;}
+        else {stats.innerHTML=choice}
         info.appendChild(stats);
         swiperSlide.appendChild(btn);
         swiperSlide.appendChild(info);

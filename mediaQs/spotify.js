@@ -18,7 +18,7 @@ module.exports = {
             socket.emit("music",{musicData,type:"song"});
         });
     },
-    spotifyBandSearch: (bandName,socket)=>{
+    spotifyBandSearch_partOne: (bandName,socket)=>{
         spotifyAPI.clientCredentialsGrant()
         .then(function(data) {
             // Save the access token so that it's used in future calls
@@ -39,5 +39,6 @@ module.exports = {
             }
             socket.emit("music",{musicData,type:"band"})
         });
-    }
+    },
+    spotifyBandSearch_partOne: (bandName,socket)=>{}
 }
