@@ -299,12 +299,13 @@ socket.on("music",songData=>{
 
     document.querySelectorAll(".choose").forEach(btn=>{
         btn.addEventListener("click",function(){
+            mediaChoices = false;
             const spotify = document.querySelector(".spotify");
             spotify.classList.add("shown");
             spotify.setAttribute("src",this.parentNode.querySelector(".info").getAttribute("url"));
             document.querySelector(".user-section").style.display = "block";
             document.querySelector(".chatty-section").style.display = "none";
-            document.querySelector("body").removeChild(document.querySelector(".swiper-container"));
+            document.querySelector("body").removeChild(document.querySelector(".swiper-container"))
         });
     })
 
