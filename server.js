@@ -54,8 +54,15 @@ io.on("connection",(socket)=>{
         })//end apiai utilization
         apiaiReq.end();
 	})
-	socket.on("music - song",text=>{
-		spotifySongSearch(text,socket)
+	socket.on("music",searchObj=>{
+		const {searchTerm,type} = searchObj;
+		if(type==="song"){
+			spotifySongSearch(text,socket)
+		} else if(type==="band"){
+			console.log("artist search");
+		} else if(type==="album"){
+			console.log("album search");
+		}
 	})
 })
 

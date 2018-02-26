@@ -23,7 +23,13 @@ synthVoice("Thank you for visiting with me. I am currently undergoing a lot of c
 //set up socket.io
 const socket = io();
 
-let songSearch=false,musicianSearch=false,albumSearch=false,mediaType=null;
+//media hooks that will direct user speech in right direction
+let music=false,video=false,tweet=false;
+//music searches
+let songSearch=false,musicianSearch=false,albumSearch=false;
+//tweets is the only other media that has a second prompt that must be answered before searching
+let usernameSearch=false,keywordSearch=false;
+//once youtube is recognized as the search, then going to do straight search - no need for more information
 
 //event listener for when the "Speak" button is clicked
 //handles some css but most importantly starts the web speech api speech recognition to pick up on audio input
@@ -34,6 +40,7 @@ document.querySelector(".btn-listen").addEventListener("click",()=>{
     recognition.start();
 })
 
+const verification = document.querySelector(".verificationForm");
 const submit = document.querySelector(".submit");
 
 //event listener for the web speech api speech recognition feature - triggers when the api recognizes that the user has finished speaking
@@ -50,20 +57,19 @@ recognition.addEventListener("result",e=>{
     let media = music||video||tweet;
     if(!media){
         socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
-    } else if(music){
-        synthVoice("This is what I heard you say. Is this correct?");
-        submit.parentNode.classList.add("shown");
-        submit.parentNode.querySelector(".heard").innerHTML=text;
-        submit.parentNode.querySelector(".heard").value=text;
-    } else if(video){
-        socket.emit("video",text);
-    } else if(tweet){
-        socket.emit("tweet",text);
+    } else {
+        //if the user is at the point that they have provided enough information to chatty for chatty to properly search for what the user wants, present them with a box to validate what chatty heard the user state
+        if(songSearch || musicianSearch || albumSearch || usernameSearch || keywordSearch || video){
+            synthVoice("This is what I heard you say. Is this correct?");
+            verification.classList.add("shown");
+            verification.querySelector(".heard").innerHTML=text;
+            verification.querySelector(".heard").value=text;
+        } else {//get 
+
+        }//getting the second part of search - search by - for spotify or twitter
     }
 })
 
-
-let music=false,video=false,tweet=false;
 
 socket.on('bot reply', (botObj) => {//socket.io event listener to pick up responses from the server regarding what the APIAI said
     const replyText = botObj.aiText;
@@ -76,21 +82,34 @@ socket.on('bot reply', (botObj) => {//socket.io event listener to pick up respon
         document.querySelector(".chatty-section").style.display = "block";
         document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen
     } else {
+        //if phrase contains 
         changeIcon(`social-${botObj.type}`);
-        mediaType=botObj.type;
-        if(botObj.type==="twitter"){
+        
+        //if music is set to true but search type is not set do the following
+        if(!songSearch&&!musicianSearch&&!albumSearch&&music){ 
+            songSearch = replyText.indexOf("song")>-1;
+            musicianSearch = replyText.indexOf("who")>-1 || replyText.indexOf("artist")>-1 || replyText.indexOf("band")>-1;
+            albumSearch = replyText.indexOf("album")>-1 || replyText.indexOf("record")>-1;
+        //if tweet is set to true but search type is not set do the following
+        } else if(!usernameSearch&&!keywordSearch&&tweet){
+            keywordSearch = replyText.indexOf("keyword")>-1 || replyText.indexOf("topic")>-1;
+            usernameSearch = replyText.indexOf("username")>-1;
+        }
+        music=replyText.indexOf("listen")>-1;
+        video=replyText.indexOf("watch")>-1;
+        tweet=replyText.indexOf("tweets")>-1;
+        
+        if(tweet){
             document.getElementById("chatty-face").style.color = "#00aced";
             document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #00aced";
-        } else if(botObj.type==="spotify"){
+        } else if(music){
             document.getElementById("chatty-face").style.color = "#1db954";
             document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #1db954";
-        } else if(botObj.type==="youtube"){
+        } else if(video){
             document.getElementById("chatty-face").style.color = "#ff0000";
             document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem #ff0000";
         }
-        if(replyText==="what song do you want to listen to?"){
-            music=true;
-        }
+
         synthVoice(replyText);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
         document.querySelector(".chatty-section").style.display = "block";
@@ -250,9 +269,15 @@ let mediaChoices = false;
 //submitting verified information to server to get media
 
 submit.addEventListener("click",function(){
-    music=false;
-    mediaType=null;
-    songSearch = !songSearch;
+
+    songSearch=false;
+    musicianSearch=false;
+    albumSearch=false;
+    usernameSearch=false;
+    keywordSearch=false;
+
+    this.parentNode.querySelector(".heard").innerHTML="";
+    this.parentNode.querySelector(".heard").value="";
     this.parentNode.classList.remove("shown");
     let searchTerm = this.parentNode.querySelector(".heard");
     if(searchTerm.innerHTML !== searchTerm.value){
@@ -260,9 +285,13 @@ submit.addEventListener("click",function(){
     } else {
         searchTerm = searchTerm.innerHTML;
     }
-    socket.emit("music",{searchTerm,type});
-    this.parentNode.querySelector(".heard").innerHTML="";
-    this.parentNode.querySelector(".heard").value="";
+
+    if(music===true){
+        music=false;
+        songSearch = !songSearch;
+        
+        socket.emit("music",{searchTerm,type});
+    }
 });
 
 //for getting back music data from spotify

@@ -23,7 +23,7 @@ function mouseMove(e){
         let Y_4 = 3.15*Y_PosPerc;
     
         
-    title.style.textShadow=`${X_1}rem ${Y_1}rem 0 rgba(255,255,255,0.75),${X_2}rem ${Y_2}rem 0 rgba(255,255,255,0.55),${X_3}rem ${Y_3}rem 0 rgba(255,255,255,0.35),${X_4}rem ${Y_4}rem 0 rgba(255,255,255,0.15)`;
+    title.style.textShadow=`${X_1}rem ${Y_1}rem 0.1rem rgba(255,255,255,0.75),${X_2}rem ${Y_2}rem 0.1rem rgba(255,255,255,0.55),${X_3}rem ${Y_3}rem 0.1rem rgba(255,255,255,0.35),${X_4}rem ${Y_4}rem 0.1rem rgba(255,255,255,0.15)`;
 }
 
 function showTextShadow(){
