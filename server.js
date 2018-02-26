@@ -58,6 +58,7 @@ io.on("connection",(socket)=>{
 		if(type==="song"){
 			spotify.spotifySongSearch(searchTerm,socket);
 		} else if(type==="band"){
+			console.log(searchObj.part);
 			if(!searchObj.part){
 				spotify.spotifyBandSearch_partOne(searchTerm,socket);
 			} else {
