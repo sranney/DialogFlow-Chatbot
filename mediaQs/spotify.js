@@ -19,6 +19,7 @@ module.exports = {
         });
     },
     spotifyBandSearch_partOne: (bandName,socket)=>{
+        console.log(bandName);
         spotifyAPI.clientCredentialsGrant()
         .then(function(data) {
             // Save the access token so that it's used in future calls
