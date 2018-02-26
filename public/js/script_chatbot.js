@@ -47,6 +47,7 @@ synthVoice = text => {//function for the browser to speak text that is fed to it
 socket.on('bot reply', (botObj) => {//socket.io event listener to pick up responses from the server regarding what the APIAI said
     const replyText = botObj.aiText;
     if(botObj.type==="other"){
+        document.getElementById("chatty-face").style.color = "white";
         changeIcon_switch(replyText);
         synthVoice(replyText);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
@@ -54,6 +55,14 @@ socket.on('bot reply', (botObj) => {//socket.io event listener to pick up respon
         document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen
     } else {
         changeIcon(`social-${botObj.type}`);
+        if(botObj.type==="twitter"){
+            document.getElementById("chatty-face").style.color = "#00aced";
+        } else if(botObj.type==="spotify"){
+            document.getElementById("chatty-face").style.color = "#1db954";
+        } else if(botObj.type==="youtube"){
+            document.getElementById("chatty-face").style.color = "#ff0000";
+        }
+        synthVoice(replyText);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
         document.querySelector(".chatty-section").style.display = "block";
         document.querySelector(".chatbot").textContent = `Chatty said: ${replyText}`;//print what the APIAI responded with to the screen        
