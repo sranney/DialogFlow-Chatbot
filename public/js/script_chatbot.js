@@ -274,8 +274,7 @@ submit.addEventListener("click",function(){
     usernameSearch=false;
     keywordSearch=false;
 
-    this.parentNode.querySelector(".heard").innerHTML="";
-    this.parentNode.querySelector(".heard").value="";
+
     this.parentNode.classList.remove("shown");
     let searchTerm = this.parentNode.querySelector(".heard");
     if(searchTerm.innerHTML !== searchTerm.value){
@@ -293,6 +292,8 @@ submit.addEventListener("click",function(){
         musicianSearch=false;
         albumSearch=false;
     }
+    this.parentNode.querySelector(".heard").innerHTML="";
+    this.parentNode.querySelector(".heard").value="";
 });
 
 //for getting back music data from spotify
