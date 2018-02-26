@@ -351,11 +351,52 @@ body {
     background-color:rgb(3, 169, 244);
 }
 
+
+.swiper-container {
+    position: absolute;
+    width: 30%;
+    height: 25%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    cursor:move;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+}
+.choose{
+    width:100%;
+    background-color:#1db954;
+    color:white;
+    margin-top:10%;
+    padding:5% 0;
+}
+.info{
+    width:100%;
+    font-size:2rem;
+    color:#eceff1;
+}
+
+.img-thumbnail{
+    float:left;
+    height:50px;
+    width:50px;
+}
 @media (max-width:800px){
+    .swiper-container{
+        width: 50%;
+    }
     .extra-title{
         display:none;
     }
     .modal_content{
         width:80vw;
+    }
+}
+
+@media (max-height:500px){
+    .swiper-container{
+        height: 100%;
     }
 }

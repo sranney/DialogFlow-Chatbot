@@ -260,5 +260,30 @@ socket.on("music",songData=>{
         const songName = name;
         return {albumName,image,artist,url,songName};
     })
-    console.log(choiceList);
+    const swiperWrapper = document.querySelector(".swiper-wrapper");
+    choiceList.forEach(choice=>{
+        const {albumName,image,artist,url,songName} = choice;
+        const swiperSlide = document.createElement("div");
+        swiperSlide.classList.add("swiper-slide");
+        const btn = document.createElement("div");
+        btn.classList.add("choose");
+        btn.innerHTML = "Choose";
+        const info = document.createElement("div");
+        info.classList.add("info");
+        info.setAttribute("url",url);
+        const img = document.createElement("img");
+        img.classList.add("img-thumbnail");
+        img.setAttribute("src",image);
+        info.appendChild(img);
+        const stats = document.createElement("p");
+        stats.innerHTML=`${artist} - ${albumName} - ${songName}`;
+        info.appendChild(stats);
+        swiperSlide.appendChild(btn);
+        swiperSlide.appendChild(info);
+
+    })
+    // <div class="swiper-slide">
+    //     <div class="choose">Choose</div><br>
+    //     <div class="artist">David Bowie</div>
+    // </div>
 })
