@@ -58,17 +58,13 @@ io.on("connection",(socket)=>{
 		if(type==="song"){
 			spotify.spotifySongSearch(searchTerm,socket);
 		} else if(type==="band"){
-			console.log(searchObj.part);
-			if(searchObj.part){
-				console.log("here");
-				spotify.spotifyBandSearch_partTwo(searchTerm,socket);
-			} else {
-				console.log("there");
-				spotify.spotifyBandSearch_partOne(searchTerm,socket);
-			}
+			spotify.spotifyBandSearch_partOne(searchTerm,socket);
 		} else if(type==="album"){
 			console.log("album search");
 		}
+	})
+	socket.on("band choice",bandName=>{
+		spotify.spotifyBandSearch_partTwo(bandName,socket);
 	})
 })
 

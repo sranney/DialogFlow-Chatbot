@@ -298,6 +298,7 @@ submit.addEventListener("click",function(){
 
 //for getting back music data from spotify
 socket.on("music",spotifyData=>{
+    console.log(spotifyData);
     const {musicData,type} = spotifyData;
     if(musicData.length>0){
         mediaChoices = true;
@@ -308,7 +309,8 @@ socket.on("music",spotifyData=>{
             const musicArr = organizingMusicResults(musicData);
             formResultDOMPresentation(musicArr,type);
         } else {formResultDOMPresentation(musicData,type);}
-        addChoiceBtnEventListeners();
+        if(type!=="artist"){addChoiceBtnEventListeners();}
+        else {addChoiceBtnEventListeners_artistChooser();}
         setSwiperFunctionality();
     } else {
         music=true;
@@ -344,6 +346,7 @@ const formResultDOMPresentation = (choiceList,type)=>{
         swiperSlide.classList.add("swiper-slide");
         const btn = document.createElement("div");
         btn.classList.add("choose");
+        if(type==="artist"){btn.classList.add("artist");}
         btn.innerHTML = "Choose";
         const info = document.createElement("div");
         info.classList.add("info");
@@ -388,3 +391,11 @@ const addChoiceBtnEventListeners=()=>{
     })
 }
 
+const addChoiceBtnEventListeners=()=>{
+    document.querySelectorAll(".choose.artist").forEach(btn=>{
+        btn.addEventListener("click",function(){
+            socket.emit("band choice",this.parentNode.querySelector(".info>.stats").innerHTML);
+            document.querySelector("body").removeChild(document.querySelector(".swiper-container"));
+        });
+    })
+}
