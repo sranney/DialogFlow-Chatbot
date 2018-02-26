@@ -243,5 +243,5 @@ utterance.onend = (e)=>{
 submit.addEventListener("click",function(){
     songSearch = !songSearch;
     this.parentNode.classList.remove("shown");
-    socket.emit("music",this.parentNode.querySelector(".heard").value);
+    socket.emit("music",this.parentNode.querySelector(".heard").innerHTML);
 });
