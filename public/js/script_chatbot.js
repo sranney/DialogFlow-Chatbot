@@ -342,7 +342,7 @@ const addChoiceBtnEventListeners=()=>{
             setTimeout(()=>{
                 var event = new Event('click');
                 document.querySelector("#play-button").dispatchEvent(event);
-            },1500);
+            },5000);
         });
     })
 }
