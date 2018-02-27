@@ -305,7 +305,7 @@ socket.on("music",spotifyData=>{
         mediaChoices = true;
         synthVoice(`Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`);//pass this info to the function defined above
         document.querySelector(".user-section").style.display = "none";
-        document.querySelector(".chatbot").textContent = `Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`;//print what the APIAI responded with to the screen
+        document.querySelector(".chatbot").textContent = `Chatty Said: Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`;//print what the APIAI responded with to the screen
         console.log(musicData);
         if(type==="song"){
             const musicArr = organizingMusicResults(musicData);
@@ -318,6 +318,11 @@ socket.on("music",spotifyData=>{
         music=true;
         synthVoice("I did not find any results for this name from the list. Please try again");
         mediaChoices=false;
+        songSearch=false;
+        musicianSearch=false;
+        albumSearch=false;
+        usernameSearch=false;
+        keywordSearch=false;
         document.querySelector(".user-section").style.display = "none";
         document.querySelector(".chatty-section").style.display = "block";
     }
