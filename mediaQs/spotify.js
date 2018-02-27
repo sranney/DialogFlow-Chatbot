@@ -56,8 +56,26 @@ module.exports = {
                 const image = album.images[0].url
                 return {artist: bandName,albumName:album.name,albumId:album.id,url,image}
             });
-            socket.emit("music",{musicData:albums,type:"album",artistDisco,data2})
+            socket.emit("music",{musicData:albums,type:"album",artistDisco,data2});
 
         })
-    }
+    },
+    spotifyAlbumSearch: (albumName,socket)=>{
+        spotifyAPI.clientCredentialsGrant()//send credentials and perform a spotify search on album
+        .then(function(data) {
+            // Save the access token so that it's used in future calls
+            spotifyAPI.setAccessToken(data.body['access_token']);
+            return spotifyAPI.searchAlbums(albumName)
+        }, function(err) {
+            console.log('Something went wrong when retrieving an access token', err.message);
+        }).then(function(data){
+            var albumResults = data.body.albums.items;
+			var albums = albumResults.map(album=>{
+                const url = album.external_urls.spotify.replace(".com",".com/embed");
+                const image = album.images[0].url
+                return {artist: bandName,albumName:album.name,albumId:album.id,url,image}
+            });    
+            socket.emit("music",{musicData:albums,type:"album",artistDisco,data2});        
+        })            
+    }    
 }
