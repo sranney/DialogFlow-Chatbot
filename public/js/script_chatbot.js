@@ -317,6 +317,7 @@ socket.on("music",spotifyData=>{
     } else {
         music=true;
         synthVoice("I did not find any results for this name from the list. Please try again");
+        mediaChoices=false;
         document.querySelector(".user-section").style.display = "none";
         document.querySelector(".chatty-section").style.display = "block";
     }
