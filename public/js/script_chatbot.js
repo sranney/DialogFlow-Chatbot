@@ -315,7 +315,7 @@ socket.on("music",spotifyData=>{
         else {addChoiceBtnEventListeners_artistChooser();}
         setSwiperFunctionality();
     } else {
-        music=true;
+        music=false;
         synthVoice("I did not find any results for this name from the list. Please try again");
         mediaChoices=false;
         songSearch=false;

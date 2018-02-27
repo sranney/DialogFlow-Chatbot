@@ -344,6 +344,7 @@ body {
 }
 
 .verificationForm>.submit{
+    cursor:pointer;
     height:10%;
     width:100%;
     color:#eceff1;
