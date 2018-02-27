@@ -64,6 +64,7 @@ recognition.addEventListener("result",e=>{
             verification.classList.add("shown");
             verification.querySelector(".heard").innerHTML=text;
             verification.querySelector(".heard").value=text;
+            document.querySelector(".chatbot").textContent = "Chatty said: This is what I heard you say. Is this correct?";//print what the APIAI responded with to the screen
         } else {//get 
             socket.emit("chat message",text);//emit to the server what the API recognizes the user as saying
         }//getting the second part of search - search by - for spotify or twitter
@@ -303,7 +304,8 @@ socket.on("music",spotifyData=>{
     if(musicData.length>0){
         mediaChoices = true;
         synthVoice(`Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`);//pass this info to the function defined above
-        document.querySelector(".user-section").style.display = "none";    
+        document.querySelector(".user-section").style.display = "none";
+        document.querySelector(".chatbot").textContent = `Please choose the ${type} that you'd like to hear from this list. You can swipe up and down to see the rest of the list`;//print what the APIAI responded with to the screen
         console.log(musicData);
         if(type==="song"){
             const musicArr = organizingMusicResults(musicData);
@@ -365,7 +367,8 @@ const formResultDOMPresentation = (choiceList,type)=>{
             info.appendChild(img);
         }
         const stats = document.createElement("p");
-        if(type==="song"||type==="album"){stats.innerHTML=`${artist} - ${albumName} - ${songName}`;}
+        if(type==="song"){stats.innerHTML=`${artist} - ${albumName} - ${songName}`;}
+        else if(type==="album"){stats.innerHTML=`${artist} - ${albumName}`;}
         else {stats.innerHTML=choice}
         info.appendChild(stats);
         swiperSlide.appendChild(btn);
