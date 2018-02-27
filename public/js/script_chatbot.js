@@ -18,7 +18,7 @@ synthVoice = text => {//function for the browser to speak text that is fed to it
 }
 
 //opening message
-synthVoice("Thank you for visiting with me. I am currently undergoing a lot of changes and am adding new features. Currently, you can check the weather, talk with me and get spotify results for songs. However, none of the other features work right now. Please visit me again to test those features out. Thanks!");
+synthVoice("Thank you for visiting with me. I am currently undergoing a lot of changes and am adding new features. YouTube and Twitter features coming soon!");
 
 //set up socket.io
 const socket = io();
@@ -340,8 +340,15 @@ const formResultDOMPresentation = (choiceList,type)=>{
     
 
     choiceList.forEach(choice=>{
-        if(type==="song"){const {albumName,image,artist,url,songName} = choice;}
-        if(type==="album"){const {albumName,image,artist,url,albumId} = choice;}
+        let albumName,image,artist,url,songName,albumId;
+        if(type==="song"||type==="album"){
+            albumName = choice.albumName;
+            image = choice.image;
+            artist = choice.artist;
+            url = choice.url;
+            if(type==="song"){songName = choice.songName;}
+            if(type==="album"){albumId = choice.albumId;}
+        }
         const swiperSlide = document.createElement("div");
         swiperSlide.classList.add("swiper-slide");
         const btn = document.createElement("div");
