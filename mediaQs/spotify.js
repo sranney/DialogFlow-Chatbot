@@ -71,12 +71,12 @@ module.exports = {
         }).then(function(data){
             var albumResults = data.body.albums.items;
             console.log(albumResults[0].artists[0].name);
-			// var albums = albumResults.map(album=>{
-            //     const url = album.external_urls.spotify.replace(".com",".com/embed");
-            //     const image = album.images[0].url
-            //     return {artist: album.artist[0].name,albumName:album.name,albumId:album.id,url,image}
-            // });    
-            // socket.emit("music",{musicData:albums,type:"album",albumResults,data});        
+			var albums = albumResults.map(album=>{
+                const url = album.external_urls.spotify.replace(".com",".com/embed");
+                const image = album.images[0].url
+                return {artist: album.artists[0].name,albumName:album.name,albumId:album.id,url,image}
+            });    
+            socket.emit("music",{musicData:albums,type:"album",albumResults,data});        
             socket.emit("music",{musicData:albumResults,type:"album",albumResults,data});        
         })            
     }    
