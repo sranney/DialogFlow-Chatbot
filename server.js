@@ -60,7 +60,7 @@ io.on("connection",(socket)=>{
 		} else if(type==="band"){
 			spotify.spotifyBandSearch_partOne(searchTerm,socket);
 		} else if(type==="album"){
-			console.log("album search");
+			spotify.spotifyAlbumSearch(searchTerm,socket);
 		}
 	})
 	socket.on("band choice",bandName=>{
