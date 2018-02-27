@@ -76,8 +76,7 @@ module.exports = {
                 const image = album.images[0].url
                 return {artist: album.artists[0].name,albumName:album.name,albumId:album.id,url,image}
             });    
-            socket.emit("music",{musicData:albums,type:"album",albumResults,data});        
-            socket.emit("music",{musicData:albumResults,type:"album",albumResults,data});        
+            socket.emit("music",{musicData:albums,type:"album",albumResults,data});       
         })            
     }    
 }
