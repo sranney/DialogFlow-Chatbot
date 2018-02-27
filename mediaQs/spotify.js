@@ -73,7 +73,7 @@ module.exports = {
 			var albums = albumResults.map(album=>{
                 const url = album.external_urls.spotify.replace(".com",".com/embed");
                 const image = album.images[0].url
-                return {artist: artist[0].name,albumName:album.name,albumId:album.id,url,image}
+                return {artist: album.artist[0].name,albumName:album.name,albumId:album.id,url,image}
             });    
             socket.emit("music",{musicData:albums,type:"album",artistDisco,data2});        
         })            
