@@ -18,7 +18,8 @@ synthVoice = text => {//function for the browser to speak text that is fed to it
 }
 
 //opening message
-synthVoice("Thank you for visiting with me. I am currently undergoing a lot of changes and am adding new features. YouTube and Twitter features coming soon!");
+synthVoice("Thank you for visiting with me. How can I help you?");
+
 
 //set up socket.io
 const socket = io();
@@ -258,6 +259,15 @@ changeIcon = (newIcon,weather)=>{
         iconGroup= "icofont";  
     }
 }
+
+//initial greeting
+changeIcon("robot-face"); 
+document.getElementById("chatty-face").style.color = "white";
+document.getElementById("chatty-face").style.textShadow= "0rem 0rem 4rem white";
+document.querySelector(".user-section").style.display = "none";
+document.querySelector(".chatty-section").style.display = "block";
+
+
 
 //when the browser has finished speaking
 utterance.onend = (e)=>{
