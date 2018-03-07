@@ -76,6 +76,7 @@ body {
 .mic{
     font-size:60vh;
     color:#607d8b;
+    text-shadow: -1px -1px 1px #fff,1px 1px 1px black;
 }
 .chatty{
     font-size: 60vh;
